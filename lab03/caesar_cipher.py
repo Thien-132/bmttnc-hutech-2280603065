@@ -17,6 +17,7 @@ class MyApp(QMainWindow):
             "plain_text": self.ui.txt_plain_text.toPlainText(),
             "key": self.ui.txt_key.toPlainText()
         }
+        print("Payload to encrypt:", payload)  # Debug: In payload ra console
         try:
             response = requests.post(url, json=payload)
             if response.status_code == 200:
@@ -38,11 +39,13 @@ class MyApp(QMainWindow):
             "cipher_text": self.ui.txt_cipher_text.toPlainText(),
             "key": self.ui.txt_key.toPlainText()
         }
+        print("Payload to decrypt:", payload)  # Debug: In payload ra console
         try:
             response = requests.post(url, json=payload)
             if response.status_code == 200:
                 data = response.json()
                 self.ui.txt_plain_text.setPlainText(data["decrypted_message"])
+                
                 msg = QMessageBox()
                 msg.setIcon(QMessageBox.Information)
                 msg.setText("Decrypted Successfully")
